@@ -1,0 +1,573 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>x.syndicates - Chimera Consortium</title>
+<style>
+  /* Google Fonts */
+  @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@700&family=Roboto+Condensed&display=swap');
+
+  /* Reset and base */
+  * {
+    margin: 0; padding: 0; box-sizing: border-box;
+  }
+  html {
+    scroll-behavior: smooth;
+  }
+  body {
+    background: radial-gradient(circle at center, #330000 0%, #120000 100%);
+    font-family: 'Roboto Condensed', sans-serif;
+    color: #f1d4d4;
+    line-height: 1.6;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+  }
+
+  /* Header and nav */
+  header {
+    position: fixed;
+    top: 0;
+    left: 0; right: 0;
+    background: #220000cc;
+    border-bottom: 3px solid #e63946;
+    box-shadow: 0 0 10px #b51717aa;
+    z-index: 1000;
+  }
+  nav {
+    max-width: 900px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px 20px;
+    overflow-x: auto; /* Allow horizontal scroll on nav */
+  }
+  nav::-webkit-scrollbar {
+    height: 8px;
+  }
+  nav::-webkit-scrollbar-thumb {
+    background-color: #e63946cc;
+    border-radius: 4px;
+  }
+  nav::-webkit-scrollbar-track {
+    background: transparent;
+  }
+  nav .logo {
+    flex: 0 0 auto;
+    font-family: 'Orbitron', sans-serif;
+    font-size: 1.8rem;
+    color: #e63946;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    user-select: none;
+    cursor: default;
+    white-space: nowrap;
+    margin-right: 20px;
+  }
+  nav ul {
+    display: flex;
+    flex-wrap: nowrap;
+    gap: 25px;
+    flex: 1 1 auto;
+    white-space: nowrap;
+    overflow-x: auto;
+    scrollbar-width: thin;
+    scrollbar-color: #e63946cc transparent;
+  }
+  nav ul::-webkit-scrollbar {
+    height: 6px;
+  }
+  nav ul::-webkit-scrollbar-thumb {
+    background-color: #e63946cc;
+    border-radius: 3px;
+  }
+  nav ul::-webkit-scrollbar-track {
+    background: transparent;
+  }
+  nav ul li {
+    flex: 0 0 auto;
+  }
+  nav ul li a {
+    color: #ff6464;
+    font-weight: 700;
+    text-transform: uppercase;
+    text-decoration: none;
+    letter-spacing: 0.1em;
+    transition: color 0.3s;
+    padding: 5px 0;
+    border-bottom: 3px solid transparent;
+    user-select: none;
+    white-space: nowrap;
+  }
+  nav ul li a:hover,
+  nav ul li a:focus {
+    color: #f94144;
+    border-bottom: 3px solid #f94144;
+    outline: none;
+  }
+
+  /* Sections general */
+  section {
+    max-width: 900px;
+    padding: 120px 20px 60px 20px;
+    margin: 0 auto;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    position: relative;
+  }
+
+  /* Hero / Announcement - Home */
+  #home {
+    background: #220000dd;
+    border: 3px solid #e63946;
+    border-radius: 15px;
+    box-shadow: 0 0 40px #e63946aa;
+    color: #e63946;
+    text-align: center;
+    user-select: none;
+  }
+  #home::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: url('https://cdn.pixabay.com/photo/2016/12/16/00/40/blood-1909275_960_720.png') no-repeat center center/cover;
+    opacity: 0.07;
+    border-radius: 15px;
+    pointer-events: none;
+    mix-blend-mode: multiply;
+    filter: brightness(0.6) contrast(1.2);
+    z-index: 0;
+  }
+  #home > * {
+    position: relative;
+    z-index: 1;
+  }
+  #home h1 {
+    font-family: 'Orbitron', sans-serif;
+    font-size: 4rem;
+    letter-spacing: 0.3em;
+    margin-bottom: 10px;
+    text-shadow:
+      0 0 5px #f94144,
+      0 0 10px #e63946,
+      0 0 20px #f94144,
+      0 0 40px #b51717;
+  }
+  #home .underline {
+    width: 250px;
+    height: 7px;
+    margin: 0 auto 25px auto;
+    background: linear-gradient(90deg, #b51717, #f94144);
+    border-radius: 3px;
+    box-shadow:
+      0 0 15px #f94144,
+      0 0 20px #b51717;
+  }
+  #home .tagline {
+    font-weight: 700;
+    font-size: 1.6rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: #ff6464;
+  }
+  #home .intro {
+    margin-top: 30px;
+    max-width: 700px;
+    margin-left: auto;
+    margin-right: auto;
+    font-size: 1.2rem;
+    color: #f1d4d4;
+    line-height: 1.7;
+    user-select: text;
+  }
+  #home svg.icon {
+    margin-top: 40px;
+    width: 100px;
+    height: 100px;
+    fill: #e63946;
+    filter: drop-shadow(0 0 7px #e63946cc);
+    transition: transform 0.3s ease;
+    cursor: default;
+    user-select: none;
+  }
+  #home svg.icon:hover {
+    transform: rotate(10deg) scale(1.1);
+  }
+
+  /* About Section */
+  #about h2,
+  #rules h2,
+  #officers h2,
+  #apply h2 {
+    color: #e63946;
+    font-family: 'Orbitron', sans-serif;
+    font-size: 2.8rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    margin-bottom: 15px;
+    position: relative;
+    user-select: none;
+  }
+  #about h2::after,
+  #rules h2::after,
+  #officers h2::after,
+  #apply h2::after {
+    content: "";
+    display: block;
+    width: 120px;
+    height: 5px;
+    background: linear-gradient(90deg, #b51717, #f94144);
+    border-radius: 3px;
+    margin-top: 5px;
+    box-shadow:
+      0 0 10px #f94144;
+  }
+  #about p {
+    font-size: 1.15rem;
+    max-width: 700px;
+    margin-top: 10px;
+    color: #f1d4d4;
+    user-select: text;
+  }
+
+  /* Rules Section */
+  #rules {
+    text-align: center;
+    max-width: 400px;
+    margin: 15px auto 0 auto;
+  }
+  #rules p {
+    font-size: 1.2rem;
+    margin-bottom: 25px;
+    color: #f1d4d4;
+    user-select: text;
+  }
+  #rules .rules-button {
+    background: #e63946;
+    color: white;
+    padding: 14px 28px;
+    font-weight: 700;
+    font-size: 1.3rem;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    border-radius: 12px;
+    text-decoration: none;
+    user-select: none;
+    box-shadow: 0 0 15px #f94144cc;
+    transition: background-color 0.3s, box-shadow 0.3s;
+    display: inline-block;
+  }
+  #rules .rules-button:hover,
+  #rules .rules-button:focus {
+    background: #b51717;
+    box-shadow: 0 0 25px #b51717ff;
+    outline: none;
+  }
+
+  /* Officers Section */
+  #officers {
+    max-width: 700px;
+    margin-top: 15px;
+    color: #f1d4d4;
+    font-size: 1.15rem;
+    user-select: text;
+  }
+  #officers dl {
+    margin-top: 10px;
+  }
+  #officers dt {
+    font-weight: 700;
+    font-size: 1.3rem;
+    margin-top: 20px;
+    color: #e63946;
+    text-transform: uppercase;
+  }
+  #officers dd {
+    margin-left: 20px;
+    margin-bottom: 12px;
+    list-style: none;
+  }
+  #officers dd ul {
+    margin: 0;
+    padding-left: 1.2em;
+    list-style-type: disc;
+  }
+  #officers .join-button {
+    display: inline-block;
+    margin-top: 30px;
+    background: #e63946;
+    color: white;
+    padding: 14px 28px;
+    font-weight: 700;
+    font-size: 1.2rem;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    border-radius: 12px;
+    text-decoration: none;
+    user-select: none;
+    box-shadow: 0 0 15px #f94144cc;
+    transition: background-color 0.3s, box-shadow 0.3s;
+  }
+  #officers .join-button:hover,
+  #officers .join-button:focus {
+    background: #b51717;
+    box-shadow: 0 0 25px #b51717ff;
+    outline: none;
+  }
+
+  /* Apply Section */
+  #apply {
+    max-width: 700px;
+    margin: 0 auto;
+    text-align: center;
+    user-select: text;
+  }
+  #apply p.tutorial {
+    font-size: 1.15rem;
+    margin-top: 20px;
+    color: #f1d4d4;
+    text-align: left;
+    max-width: 700px;
+    margin-left: auto;
+    margin-right: auto;
+    user-select: text;
+    line-height: 1.6;
+  }
+  #apply ol {
+    margin-top: 15px;
+    text-align: left;
+    max-width: 700px;
+    margin-left: auto;
+    margin-right: auto;
+    color: #ffc1c1;
+    font-size: 1.1rem;
+    user-select: text;
+    padding-left: 20px;
+  }
+  #apply ol li {
+    margin-bottom: 12px;
+  }
+  #apply .apply-button {
+    display: inline-block;
+    margin-top: 35px;
+    background: #e63946;
+    color: white;
+    padding: 16px 32px;
+    font-weight: 700;
+    font-size: 1.4rem;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    border-radius: 14px;
+    text-decoration: none;
+    user-select: none;
+    box-shadow: 0 0 20px #f94144cc;
+    transition: background-color 0.3s, box-shadow 0.3s;
+  }
+  #apply .apply-button:hover,
+  #apply .apply-button:focus {
+    background: #b51717;
+    box-shadow: 0 0 30px #b51717ff;
+    outline: none;
+  }
+
+  /* Footer */
+  footer {
+    background: #220000dd;
+    border-top: 3px solid #e63946;
+    text-align: center;
+    padding: 15px 10px;
+    font-size: 0.9rem;
+    color: #b51717cc;
+    user-select: none;
+    position: relative;
+  }
+  footer .fb-link {
+    position: absolute;
+    right: 15px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: #e63946;
+    font-weight: 700;
+    text-decoration: none;
+    border: 2px solid #e63946;
+    padding: 6px 12px;
+    border-radius: 8px;
+    box-shadow: 0 0 8px #e63946cc;
+    transition: background-color 0.3s, color 0.3s;
+    user-select: none;
+  }
+  footer .fb-link:hover,
+  footer .fb-link:focus {
+    background-color: #e63946;
+    color: #220000;
+    box-shadow: 0 0 15px #f94144cc;
+    outline: none;
+  }
+
+  /* Responsive */
+  @media (max-width: 600px) {
+    nav {
+      padding-left: 10px;
+      padding-right: 10px;
+    }
+    nav ul {
+      gap: 15px;
+      font-size: 0.9rem;
+    }
+    #home h1 {
+      font-size: 2.8rem;
+    }
+    #about p, #rules, #officers dl, #apply p.tutorial, #apply ol li {
+      font-size: 1rem;
+    }
+    footer .fb-link {
+      position: static;
+      display: inline-block;
+      margin-top: 10px;
+      transform: none;
+    }
+  }
+</style>
+</head>
+<body>
+  <header role="banner">
+    <nav aria-label="Primary navigation">
+      <div class="logo">x.syndicates</div>
+      <ul>
+        <li><a href="#home" tabindex="0">Home</a></li>
+        <li><a href="#about" tabindex="0">About</a></li>
+        <li><a href="#rules" tabindex="0">Rules</a></li>
+        <li><a href="#officers" tabindex="0">Officers</a></li>
+        <li><a href="#apply" tabindex="0">Apply</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <section id="home" tabindex="-1" aria-label="Home announcement section">
+    <h1>x.syndicates</h1>
+    <div class="underline" aria-hidden="true"></div>
+    <div class="tagline">The x.Syndicates</div>
+    <p class="intro">
+      Welcome to <strong>x.syndicates</strong>, the most feared and respected mafia network. Our power runs deep and our influence is unmatched. Tonight, a new era begins.<br><br>
+      Stay vigilant, move with precision, and trust no one outside the inner circle.<br><br>
+      This announcement is a call to action—strengthen the syndicate, enforce our code, and make your moves count.<br><br>
+      <em>Remember: Loyalty is everything. Respect is earned. Power is taken.</em>
+    </p>
+    <svg class="icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" aria-hidden="true" role="img" focusable="false" >
+      <path d="M9.09 47.6c.13-.01.27-.03.4-.05l8-1a1.5 1.5 0 0 1 1.87 1.26L21 53.6a5 5 0 0 0 4.44-5.3l-2.17-17.27 2.98-2.98 16.96 16.97-2.74 2.73a5.001 5.001 0 0 0 5.9 6.9c.48-.25.91-.62 1.24-1.09l7.4-10.6a1.5 1.5 0 0 1 2.03-.39l2.48 1.82a1.5 1.5 0 0 1-1.68 2.52l-.29-.21-7.38 10.58a8 8 0 0 1-11.85 2.16l-20.7-20.73a.5.5 0 0 1 .6-.8zM44.22 32l-3.15-3.15a.5.5 0 0 0-.7 0l-4.22 4.23.23 1.67zM18.6 48.52l-4.1.52-1.33-10.6 3.33-2.94 2.35-1.95 3.83 30.03a1 1 0 0 1-1.33.99z"/>
+    </svg>
+  </section>
+
+  <section id="about" tabindex="-1" aria-label="About x.syndicates mafia syndicate">
+    <h2>About Us</h2>
+    <p>
+      Born from shadows and forged in the fires of rivalry, <strong>x.syndicates</strong> commands respect across cities. Our organization thrives on loyalty, secrecy, and power. Operating beyond the ordinary, our members are the unseen force shaping the underworld. We believe in honor among thieves, strength through unity, and the relentless pursuit of influence.
+    </p>
+  </section>
+
+  <section id="rules" tabindex="-1" aria-label="Rules of x.syndicates">
+    <h2>Rules</h2>
+    <p>Click the button below to view the rules.</p>
+    <a href="https://www.facebook.com/groups/1125618019158542/permalink/1230585101995166/" target="_blank" rel="noopener noreferrer" class="rules-button" aria-label="View Rules">View Rules</a>
+  </section>
+
+  <section id="officers" tabindex="-1" aria-label="Officers of x.syndicates">
+    <h2>Officers</h2>
+    <dl>
+      <dt>OG Owner</dt>
+      <dd>
+        <ul>
+          <li>Ravi</li>
+          <li>Clyde</li>
+        </ul>
+      </dd>
+
+      <dt>Owner</dt>
+      <dd>
+        <ul>
+          <li>Ereen</li>
+          <li>Freya</li>
+          <li>Leo</li>
+          <li>Kianna</li>
+        </ul>
+      </dd>
+
+      <dt>Main 00 Co Owner</dt>
+      <dd>
+        <ul>
+          <li>Effie</li>
+          <li>Leila</li>
+          <li>Sic.</li>
+        </ul>
+      </dd>
+
+      <dt>Creator</dt>
+      <dd>
+        <ul>
+          <li>Jake</li>
+          <li>Lee</li>
+          <li>Duston</li>
+        </ul>
+      </dd>
+
+      <dt>Creatress</dt>
+      <dd>
+        <ul>
+          <li>Yumi</li>
+          <li>Keila</li>
+        </ul>
+      </dd>
+
+      <dt>Handler</dt>
+      <dd>
+        <ul>
+          <li>Michiko</li>
+          <li>Faizel</li>
+          <li>Thea</li>
+          <li>Tyrell</li>
+        </ul>
+      </dd>
+
+      <dt>Editress</dt>
+      <dd>
+        <ul>
+          <li>Navia</li>
+          <li>Seixa</li>
+        </ul>
+      </dd>
+
+      <dt>Editor</dt>
+      <dd>
+        <ul>
+          <li>Uno</li>
+        </ul>
+      </dd>
+    </dl>
+
+    <a href="https://facebook.com/groups/1125618019158542/" target="_blank" rel="noopener noreferrer" class="join-button" aria-label="Join x syndicates Facebook Group">Join Our Facebook Group</a>
+  </section>
+
+  <section id="apply" tabindex="-1" aria-label="Apply to join x.syndicates">
+    <h2>Apply to Join</h2>
+    <p class="tutorial">Ready to ascend into the ranks of x.syndicates? Follow these steps carefully to ensure your application stands out and respects our tradition:</p>
+    <ol>
+      <li>Click the <strong>"Apply on Facebook"</strong> button below to visit our exclusive Facebook group.</li>
+      <li>Please provide the name of the recruiter, for example: "Uno"</li>
+      <li>Await a response from one of the Officers who will review your application.</li>
+      <li>If accepted, follow the rules and instructions provided to become a full member.</li>
+      <li>Remember: secrecy, loyalty, and respect form the foundation of your journey here.</li>
+    </ol>
+    <a href="https://www.facebook.com/61568704733450/posts/pfbid0mXjLym6SVWVNuPczKdh6q1EVdz7TksoJyKay8L53c9DW3hRUCVpfT8SN9Lh8YBqyl/?app=fbl" target="_blank" rel="noopener noreferrer" class="apply-button" aria-label="Apply to join x syndicates Facebook Group">Apply on Facebook</a>
+  </section>
+
+  <footer role="contentinfo" aria-label="Page Footer">
+    &copy; 2025 x.syndicates. All Rights Reserved.
+    <a href="https://facebook.com/groups/1125618019158542/" target="_blank" rel="noopener noreferrer" class="fb-link" aria-label="Facebook Group Link">Facebook Group</a>
+  </footer>
+</body>
+    </html>
+    
