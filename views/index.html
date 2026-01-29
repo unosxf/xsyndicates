@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Uno.exe | Scripting Hub</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        body { background: #050505; color: #94a3b8; font-family: sans-serif; }
+        .sidebar { background: #0c0c0e; border-right: 1px solid #1e1e22; }
+        .card { background: #0f0f12; border: 1px solid #1e1e22; border-radius: 12px; }
+        .accent { color: #8b5cf6; }
+        code { color: #a5b4fc; font-family: monospace; }
+    </style>
+</head>
+<body class="flex h-screen">
+
+    <aside class="sidebar w-64 flex-shrink-0 p-6 hidden md:block">
+        <div class="mb-10 text-white font-bold text-xl tracking-widest">
+            UNO<span class="accent">.EXE</span>
+        </div>
+        <nav class="space-y-4">
+            <% tutorials.forEach(t => { %>
+                <a href="#<%= t.id %>" class="block text-sm hover:text-white transition">
+                    <%= t.title %>
+                </a>
+            <% }); %>
+        </nav>
+    </aside>
+
+    <main class="flex-grow overflow-y-auto p-8 md:p-16">
+        <header class="mb-12">
+            <h1 class="text-4xl font-black text-white mb-2">Tutorial Repository</h1>
+            <p class="text-zinc-500">Managed by Uno.exe • v1.0.4</p>
+        </header>
+
+        <div class="space-y-12">
+            <% tutorials.forEach(t => { %>
+                <section id="<%= t.id %>" class="card p-6">
+                    <h2 class="text-xl font-bold text-white mb-2"><%= t.title %></h2>
+                    <p class="text-sm mb-6"><%= t.description %></p>
+                    
+                    <div class="bg-black/40 p-4 rounded-lg border border-white/5">
+                        <pre class="text-xs overflow-x-auto"><code><%= t.code %></code></pre>
+                    </div>
+                </section>
+            <% }); %>
+        </div>
+
+        <footer class="mt-20 py-8 border-t border-white/5 text-center text-xs">
+            Site Protection Active • Credits: **Uno.exe**
+        </footer>
+    </main>
+
+</body>
+            </html>
