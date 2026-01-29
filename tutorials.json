@@ -1,0 +1,23 @@
+[
+  {
+    "id": "intro",
+    "title": "01. Environment Setup",
+    "description": "Configuring your workspace for script development.",
+    "content": "Before coding, ensure your executor supports standard libraries like Bit32 and Debug.",
+    "code": "-- Identify your software\nprint(\"Loaded Uno.exe Environment\")\nlocal exec = identifyexecutor() or \"Unknown\"\nwarn(\"Current Executor: \" .. exec)"
+  },
+  {
+    "id": "remotes",
+    "title": "02. Remote Security Bypass",
+    "description": "How to bypass basic remote event rate limiting.",
+    "content": "Some games track how fast you fire remotes. Use task.wait() to stay under the radar.",
+    "code": "for i = 1, 10 do\n    game.ReplicatedStorage.Remote:FireServer()\n    task.wait(0.5)\nend"
+  },
+  {
+    "id": "instance-caching",
+    "title": "03. Instance Caching",
+    "description": "Optimizing your scripts for high-performance games.",
+    "content": "Use variables to store services instead of calling GetService repeatedly.",
+    "code": "local Players = game:GetService('Players')\nlocal LP = Players.LocalPlayer\n\nprint(\"Welcome, \" .. LP.Name)"
+  }
+]
